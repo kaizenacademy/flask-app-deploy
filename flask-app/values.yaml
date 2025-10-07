@@ -1,0 +1,9 @@
+deployment:
+  name: flask
+  port: 80
+  image: hello
+  tag: "1.0.0"
+  
+service:
+  name: flask-service
+  port: 80

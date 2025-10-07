@@ -1,0 +1,49 @@
+name: Deploy to GKE
+
+on:
+  workflow_dispatch:
+    inputs:
+      docker_image:
+        description: 'Docker image repository'
+        required: true
+        default: ''
+      image_tag:
+        description: 'Docker image tag'
+        required: true
+        default: ''
+
+jobs:
+  setup-build-publish:
+    name: Setup, Build, and Publish
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GKE_SA_KEY }}
+
+    - name: Set GCP Project
+      run: gcloud config set project
+
+    - name: Install gke-gcloud-auth-plugin
+      run: gcloud components install gke-gcloud-auth-plugin
+
+    - name: Get GKE credentials
+      run: 
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Deploy to GKE
+      run: |
+        helm upgrade --install flask ./flask-app --set deployment.image=${{ inputs.docker_image }} --set deployment.tag=${{ inputs.image_tag }}
