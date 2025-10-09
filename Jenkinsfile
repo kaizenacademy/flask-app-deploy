@@ -6,6 +6,7 @@ metadata:
     run: kubernetes
   name: kubernetes
 spec:
+  serviceAccount: kubernetes
   containers:
   - image: kaizenacademy/my-binary:1.0.0
     name: kubernetes
