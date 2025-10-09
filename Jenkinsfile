@@ -20,12 +20,7 @@ node("kubernetes") {
     } 
 
     stage("Check") {
-        sh """
-        terraform version
-        helm version
-        kubectl version
-        kubectl get nodes
-        """
+        sh "helm upgrade --install flask ./flask-app"
     }
     }
 }
