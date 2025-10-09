@@ -20,7 +20,7 @@ node("kubernetes") {
     } 
 
     stage("Check") {
-        sh "helm upgrade --install flask ./flask-app --set deployment.image=kaizenacademy/jenkins-flask-app:1.0.0"
+        sh "helm upgrade --install flask ./flask-app --set deployment.image=kaizenacademy/jenkins-flask-app"
     }
     }
 }
