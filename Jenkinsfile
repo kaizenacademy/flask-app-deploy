@@ -12,6 +12,13 @@ spec:
     name: kubernetes
     '''
 
+properties([
+  parameters([
+    string(description: 'enter ami id', name: 'ami', trim: true),
+    string(description: 'enter instance type', name: 'type', trim: true)
+    ])
+    ])
+
 podTemplate(cloud: 'kubernetes', label: 'kubernetes', yaml: template) {
 node("kubernetes") {
     container("kubernetes") {
