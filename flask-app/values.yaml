@@ -7,4 +7,4 @@ deployment:
 service:
   name: flask-service
   port: 80
-  type: LoadBalancer
+  type: NodePort
